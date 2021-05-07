@@ -1,0 +1,34 @@
+---
+version: "3.2"
+services:
+  chrony:
+    image: chrony
+    build:
+      context: .
+      dockerfile: containers/Dockerfile.chrony
+    ports:
+      - "123:123/udp"
+    cap_add:
+      - SYS_TIME
+    networks:
+      - bmrr_gcs_default
+    volumes:
+      - type: bind
+        source: /dev/rtc
+        target: /dev/rtc
+        read_only: yes
+      - type: bind
+        source: ./assets/chronyd/chrony.conf
+        target: /etc/chrony/chrony.conf
+        read_only: yes
+      - type: volume
+        source: chrony
+        target: /var/lib/chrony
+
+volumes:
+  chrony:
+networks:
+  bmrr_gcs_default:
+    external:
+      name: bmrr_gcs
+...

@@ -1,0 +1,9 @@
+FROM alpine:20200428
+
+RUN apk update && apk add python py-pip
+RUN pip install setuptools
+RUN apk add --update supervisor && rm -rf /tmp/* /var/cache/apk*
+
+ADD assets/supervisord.conf /etc/
+
+ENTRYPOINT ["supervisord", "--nodaemon", "--configuration", "/etc/supervisord.conf"]

@@ -1,0 +1,15 @@
+[Unit]
+Description=Chrony server for BMRR experiments
+After=network.target docker.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/env docker-compose up chrony
+ExecStop=/usr/bin/env docker-compose stop chrony
+ExecStopPost=-/usr/bin/env docker-compose rm -f chrony
+KillSignal=SIGINT
+WorkingDirectory=${BMRR_GCS_INSTALL_DIR}
+Restart=always
+
+[Install]
+WantedBy=default.target
