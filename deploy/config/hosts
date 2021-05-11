@@ -1,0 +1,5 @@
+[robot]
+robot0.local ansible_user=inrol
+robot1.local ansible_user=inrol
+robot2.local ansible_user=inrol
+robot3.local ansible_user=nuc

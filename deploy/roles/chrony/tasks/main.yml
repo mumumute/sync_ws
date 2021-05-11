@@ -1,0 +1,34 @@
+---
+- name: Update apt-cache
+  apt:
+    update_cache: yes
+
+- name: Install chronyd
+  apt:
+    name: chrony
+    state: present
+
+- name: Register bsw-730QCJ-730QCR.local as an ntp server
+  lineinfile:
+    dest: /etc/chrony/chrony.conf
+    line: server bsw-730QCJ-730QCR.local iburst
+    state: present
+    regexp: server bsw-730QCJ-730QCR.local.*
+
+- name: Remove other ntp servers
+  lineinfile:
+    dest: /etc/chrony/chrony.conf
+    state: absent
+    regexp: \s*(server|pool)\s+(?!bsw-730QCJ-730QCR.local).*
+
+- name: Restart chronyd
+  systemd:
+    name: chrony.service
+    enabled: yes
+    state: restarted
+    daemon_reload: yes
+
+- name: Resync
+  shell:
+    cmd: chronyc makestep
+...

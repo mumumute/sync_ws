@@ -1,0 +1,9 @@
+
+---
+- name: Deploy chronyd
+  hosts: robot
+  roles:
+    - hosts
+    - chrony
+  become: true
+...

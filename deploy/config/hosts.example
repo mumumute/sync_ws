@@ -1,0 +1,2 @@
+[robot]
+agv-nuc7i7beh.local ansible_user=robot1

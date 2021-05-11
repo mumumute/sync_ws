@@ -1,0 +1,6 @@
+docker exec -it sync_ws_chrony_1 chronyc tracking
+
+* build docker image
+docker-compose build
+
+run chronyc tracking in container
