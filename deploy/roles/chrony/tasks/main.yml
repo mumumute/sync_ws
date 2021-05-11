@@ -30,5 +30,5 @@
 
 - name: Resync
   shell:
-    cmd: chronyc makestep
+    cmd: chronyc -a makestep
 ...
